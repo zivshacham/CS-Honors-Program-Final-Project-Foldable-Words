@@ -1,9 +1,6 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
-
-import org.w3c.dom.Node;
 
 /**
  * A library of words lexicon functions.
