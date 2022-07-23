@@ -3,16 +3,21 @@
 
 public class FoldedWord {
 	public static void main(String[] args) {
-		Lexicon temp = new Lexicon("abcd");
-		System.out.println(temp.IsExist("I"));
-		System.out.println(temp.IsExist("O"));
-		System.out.println(temp.IsExist("ziv"));
+		// Lexicon temp = new Lexicon("words");
+		// System.out.println(temp.IsExist("i"));
+		// System.out.println(temp.IsExist("o"));
+		// System.out.println(temp.IsExist("a"));
+		// System.out.println(temp.IsExist("ziv"));
+		// System.out.println(temp.IsExist("vomer"));
+		System.out.println(Normalize("It's a pleasure to serve you!"));
 
 	}
 
 	public static String Normalize(String str){
 		// Normalizing the string means: lowercase only, no spaces, no punctuation.
-		return str;
+		String normalized_str = str.toLowerCase();
+		normalized_str = normalized_str.replaceAll("[^a-z]", "");
+		return normalized_str;
 	}
 
 	public static void Algo1(){
