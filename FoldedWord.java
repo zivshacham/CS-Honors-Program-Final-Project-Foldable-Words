@@ -14,8 +14,10 @@ public class FoldedWord {
 		System.out.println();
 		System.out.println("Using Alghorithm 'FoldableStrings3':");
 		FoldableStrings3(lexicon, text);
-		System.out.println("Using Alghorithm 'foldablesByCounting':");
-		foldablesByCounting(lexicon, text);
+		// System.out.println("Using Alghorithm 'foldablesByCounting':");
+		// foldablesByCounting(lexicon, text);
+		// System.out.println("Using Alghorithm 'wordIsFoldableAlgo':");
+		// wordIsFoldableAlgo(lexicon, text);
 	}
 
 	public static String Normalize(String str){
@@ -110,20 +112,9 @@ public class FoldedWord {
 		}
 		PrintOrderedList(words,text);		
 	}
-	// def wordIsFoldable(word, text):
-    // normtext = normalize(text)
-    // t = 0                      # pointer to positions in normtext
-    // w = 0                      # pointer to positions in word
-    // while t < len(normtext):
-    //     if word[w] == normtext[t]:  # matching chars in word and text
-    //         w += 1                  # move to next char in word
-    //     if w == len(word):          # matched all chars in word
-    //         return(True)            # so: thumbs up
-    //     t += 1                 # move to next char in text
-    // return(False)
-
+	
 	// this function return true if the word can be formed by folding the given text
-	private boolean wordIsFoldable(String word, String text){
+	private static boolean wordIsFoldable(String word, String text){
 		for(int i = 0; i < word.length(); i++ ){
 			for(int j = 0; j < text.length(); j++ ){
 				if(word.charAt(i) == word.charAt(j)){
@@ -137,7 +128,7 @@ public class FoldedWord {
 		return false;
 	}
 	
-	public void wordIsFoldableAlgo(Lexicon lexicon, String text){
+	public static void wordIsFoldableAlgo(Lexicon lexicon, String text){
 		LinkedList words = new LinkedList<String>();
 		String word;
 		while(!(lexicon.ReadWord() == "")){
