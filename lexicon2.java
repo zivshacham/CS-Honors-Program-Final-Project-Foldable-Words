@@ -10,7 +10,8 @@ import org.w3c.dom.Node;
 public class Lexicon2 {
 	
 	private String filename;                   
-	private LinkedList<String> head;
+	private LinkedList<String>[] table;
+    private static int SIZE = 250007;
 
 
 	/**
@@ -21,10 +22,11 @@ public class Lexicon2 {
     */
 	public Lexicon2(String filename) {
 		this.filename = filename;
-		head = new LinkedList<String>();
-		head.addLast("I");
-		head.addLast("a");
-		head.add("O");
+		createLexiconTable(filename);
+        // head = new LinkedList<String>();
+		// head.addLast("I");
+		// head.addLast("a");
+		// head.add("O");
       	/* try {
          // try to read from file in working directory
         	File file = new File (filename);
@@ -40,7 +42,7 @@ public class Lexicon2 {
       if (image == null) {
         	throw new RuntimeException ("Invalid image file: " + filename);
       }*/
-	}
+	// }
 
 	/**
     * The function gets a word, and return whether the word
@@ -49,9 +51,9 @@ public class Lexicon2 {
     * @param word a string of a word
 	* @return True/False if the word is exist
     */
-	public boolean IsExist(String word) {
-		return head.contains(word);
-	}
+	// public boolean IsExist(String word) {
+	// 	return head.contains(word);
+	// }
 
 	/**
     * The function gets a word, and return whether the word
@@ -60,17 +62,36 @@ public class Lexicon2 {
     * @param word a string of a word
 	* @return True/False if the word is exist
     */
-	public String ReadWord() {
+	// public String ReadWord() {
 		
-		return "";
-	}
-    public LinkedList [] lexiconTable(String fileName){
-        int size = 235886;
-        LinkedList [] table = new LinkedList<String>()[size];
+	// 	return "";}
+	// 
+
+    public LinkedList<String>[] createLexiconTable(String fileName){
+        table = new LinkedList<string>[SIZE];
+        for (int i = 0; i <= SIZE; i++){
+            String word = StdIn.readLine();
+            table[hashFunction(word)].add(word);
+        }
     }
+    private int hashFunction(String word){
+        long sum;
+        for(int i = 0; i < word.length(); i++){
+            toLowerCase(word);
+            int c = word.charAt(i);
+            c -= 'a'+ 1;
+            c = c * (Math.pow(26,i));
+            sum += c; 
+        }
+        return sum % ;
+    }
+    
 
 	public static void main(String[] args) {
-		//tetsing
+		// hash func check
+        String word = "aaa"
+        System.out.prinln("hash func on " + word + ", should print 703. result: \n" + hashFunction(word));
+        
 	}
 }
 
