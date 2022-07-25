@@ -68,7 +68,7 @@ public class Lexicon {
     */
 	private int Hash_Formula(String word){
 		int result = 0;
-		for (int i = 1; i <= 3; i++) {
+		for (int i = 1; i <= NUM_OF_SIGNIFICANT_LETTERS; i++) {
 			if (i <= word.length()) {
 				int char_value = word.charAt(i - 1) - 'a' + 1;
 				result += char_value * Math.pow(26, i - 1);
@@ -101,26 +101,37 @@ public class Lexicon {
 		return current.next();
 	}
 
-	public int MaxinCell() {
-		int max = 0;
+	/**
+    * Used for debugging manners.
+    * printing the maximum length of a cell in the hash table, and 
+	* the number of that cell.
+    */
+	private void MaxinCell() {
+		int maxWords = 0;
+		int maxCell = 0;
 		for (int i=0; i<lexicon.length; i++) {
-			if (lexicon[i].size() > max) max = i;
+			if (lexicon[i].size() > maxWords) {
+				maxWords = lexicon[i].size();
+				maxCell = i;
+			}
 		}
-		return max;
+		System.out.println("For the NUM_OF_SIGNIFICANT_LETTERS: " + NUM_OF_SIGNIFICANT_LETTERS);
+		System.out.println("The maximum words in 1 cell is: " + maxWords);
+		System.out.println("The biggest cell is: " + maxCell);
 	}
 
 	public static void main(String[] args) {
 		Lexicon lex = new Lexicon("words");
 		// System.out.println(lex.Get_Table()[1].toString());
 		// System.out.println(lex.Get_Table()[18278].toString());
-		System.out.println(lex.IsExist("a"));
-		System.out.println(lex.IsExist("zz"));
-		System.out.println(lex.IsExist("zzz"));
-		System.out.println(lex.IsExist("zzzaad"));
+		// System.out.println(lex.IsExist("a"));
+		// System.out.println(lex.IsExist("zz"));
+		// System.out.println(lex.IsExist("zzz"));
+		// System.out.println(lex.IsExist("zzzaad"));
 		// for (int i = 0; i <= 1000; i++) {
 		// 	System.out.println(lex.ReadWord());
 		// }
-		System.out.println(lex.MaxinCell());
+		lex.MaxinCell();
 		System.out.println("done succesfuly");
 	}
 }
