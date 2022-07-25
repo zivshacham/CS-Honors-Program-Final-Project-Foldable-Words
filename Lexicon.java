@@ -101,6 +101,14 @@ public class Lexicon {
 		return current.next();
 	}
 
+	public int MaxinCell() {
+		int max = 0;
+		for (int i=0; i<lexicon.length; i++) {
+			if (lexicon[i].size() > max) max = i;
+		}
+		return max;
+	}
+
 	public static void main(String[] args) {
 		Lexicon lex = new Lexicon("words");
 		// System.out.println(lex.Get_Table()[1].toString());
@@ -109,9 +117,10 @@ public class Lexicon {
 		System.out.println(lex.IsExist("zz"));
 		System.out.println(lex.IsExist("zzz"));
 		System.out.println(lex.IsExist("zzzaad"));
-		for (int i = 0; i <= 1000; i++) {
-			System.out.println(lex.ReadWord());
-		}
+		// for (int i = 0; i <= 1000; i++) {
+		// 	System.out.println(lex.ReadWord());
+		// }
+		System.out.println(lex.MaxinCell());
 		System.out.println("done succesfuly");
 	}
 }
