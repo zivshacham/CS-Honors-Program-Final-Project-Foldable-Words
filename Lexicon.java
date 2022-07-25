@@ -102,17 +102,16 @@ public class Lexicon {
 	}
 
 	public static void main(String[] args) {
-		// Lexicon lex = new Lexicon("words");
+		Lexicon lex = new Lexicon("words");
 		// System.out.println(lex.Get_Table()[1].toString());
 		// System.out.println(lex.Get_Table()[18278].toString());
-		// System.out.println(lex.IsExist("a"));
-		// System.out.println(lex.IsExist("zz"));
-		// System.out.println(lex.IsExist("zzz"));
-		// System.out.println(lex.IsExist("zzzaad"));
-		// System.out.println(lex.ReadWord());
-		// System.out.println(lex.ReadWord());
-		// System.out.println(lex.ReadWord());
-		// System.out.println(lex.ReadWord());
-		// System.out.println("done succesfuly");
+		System.out.println(lex.IsExist("a"));
+		System.out.println(lex.IsExist("zz"));
+		System.out.println(lex.IsExist("zzz"));
+		System.out.println(lex.IsExist("zzzaad"));
+		for (int i = 0; i <= 1000; i++) {
+			System.out.println(lex.ReadWord());
+		}
+		System.out.println("done succesfuly");
 	}
 }
