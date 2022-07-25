@@ -1,20 +1,17 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.List;
+import org.w3c.dom.Node;
 
 /**
  * A library of words lexicon functions.
  */
 public class Lexicon {
 	
-	final static int NUM_OF_SIGNIFICANT_LETTERS = 3;							// number of letters to refer in hash function
-	final static int ARR_SIZE = (int) Math.pow(27, NUM_OF_SIGNIFICANT_LETTERS); // size of the hash table
-	
-	private	LinkedList<String>[] lexicon;		// hash table, using chaining 
-	private Iterator<String> current;			// used for iterating each of the list in the table
-	private int counter;						// the counter is used when "reading" words from the lexicon
+	private String filename;                   // name of file
+	private LinkedList<String> head;
+
 
 	/**
     * Creates a lexicon by reading in a list of words from
@@ -23,60 +20,26 @@ public class Lexicon {
     * @param filename words file name
     */
 	public Lexicon(String filename) {
-		lexicon = new LinkedList[ARR_SIZE];
-		for(int i = 0; i < ARR_SIZE; i++) {
-			lexicon[i] = new LinkedList<String>();
-		}
-		counter = 0;
-		current = lexicon[counter].iterator();
-		// insert("i");
-		// insert("o");
-		// insert("a");
-		
-      	try {
-         // try to read from file 
+		this.filename = filename;
+		head = new LinkedList<String>();
+		head.addLast("I");
+		head.addLast("a");
+		head.add("O");
+      	/* try {
+         // try to read from file in working directory
         	File file = new File (filename);
-			Scanner reader = new Scanner(file);
-			while(reader.hasNextLine()) {
-				String word  = reader.nextLine();
-				word = word.toLowerCase();
-				insert(word);
-			}
-			reader.close();
-      	}
+        	image  = ImageIO.read (file);
+        	width  = image.getWidth (null);
+        	height = image.getHeight (null);
+      }
+      catch (IOException e) {
+        	throw new RuntimeException ("Could not open file: " + filename);
+      }
 
-      	catch (IOException e) {
-        	// throw new RuntimeException ("Could not open file: " + filename);
-			System.out.println("Could not open file: " + filename);
-		}
-	}
-
-	/**
-    * The function gets a word, insert it to the hash table
-	* according to the hash function. 
-    * 
-    * @param word a string of a word
-    */
-	public void insert(String word) {
-		lexicon[Hash_Formula(word)].addLast(word);
-	}
-
-	/**
-    * The function calculate the value of the word according 
-	* to hash formula. 
-    * 
-    * @param word a string of a word
-	* @return the hash value between 0 to ARR_SIZE
-    */
-	private int Hash_Formula(String word){
-		int result = 0;
-		for (int i = 1; i <= 3; i++) {
-			if (i <= word.length()) {
-				int char_value = word.charAt(i - 1) - 'a' + 1;
-				result += char_value * Math.pow(26, i - 1);
-			}
-		}
-		return result;
+      // check that image was read in
+      if (image == null) {
+        	throw new RuntimeException ("Invalid image file: " + filename);
+      }*/
 	}
 
 	/**
@@ -87,41 +50,23 @@ public class Lexicon {
 	* @return True/False if the word is exist
     */
 	public boolean IsExist(String word) {
-		return lexicon[Hash_Formula(word)].contains(word);
+		return head.contains(word);
 	}
 
 	/**
-    * The function is used for iterating the whole hash table,
-    * in each call to the function, the function return the next
-	* word in the table (in the same list or the first in the next list)
-	*
-	* @return The next word in the table
+    * The function gets a word, and return whether the word
+	* is exist in the lexicon. 
+    * 
+    * @param word a string of a word
+	* @return True/False if the word is exist
     */
 	public String ReadWord() {
-		while(!current.hasNext()) {
-			counter++;
-			current = lexicon[counter].iterator();
-			if(counter == ARR_SIZE - 1) return ""; 
-		}
-		return current.next();
+		
+		return "";
 	}
 
 	public static void main(String[] args) {
-		// Lexicon lex = new Lexicon("words");
-		// System.out.println(lex.Get_Table()[1].toString());
-		// System.out.println(lex.Get_Table()[18278].toString());
-		// System.out.println(lex.IsExist("a"));
-		// System.out.println(lex.IsExist("zz"));
-		// System.out.println(lex.IsExist("zzz"));
-		// System.out.println(lex.IsExist("zzzaad"));
-		// System.out.println(lex.ReadWord());
-		// System.out.println(lex.ReadWord());
-		// System.out.println(lex.ReadWord());
-		// System.out.println(lex.ReadWord());
-		// System.out.println("done succesfuly");
-
-		
-		
+		//tetsing
 	}
 }
 
