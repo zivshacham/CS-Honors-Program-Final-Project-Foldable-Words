@@ -14,6 +14,8 @@ public class FoldedWord {
 		System.out.println();
 		System.out.println("Using Alghorithm 'FoldableStrings3':");
 		FoldableStrings3(lexicon, text);
+		System.out.println("Using Alghorithm 'foldablesByCounting':");
+		foldablesByCounting(lexicon, text);
 	}
 
 	public static String Normalize(String str){
@@ -90,11 +92,59 @@ public class FoldedWord {
 		PrintOrderedList(lst, norm_text);
 	}
 
-	public static void Algo3(){
-		
+	public static void foldablesByCounting(Lexicon lexicon, String text){
+		text = Normalize(text);
+		int length = text.length();
+		LinkedList words = new LinkedList<String>();
+		for(int i = 0; i < Math.pow(2, length) - 1; i++ ){     //iterate over all the binaray sequance shorter than the string length
+			String BinaryWord = Integer.toBinaryString(i);
+			StringBuilder generatedWord = new StringBuilder();
+			for(int pos = 0; pos < BinaryWord.length() ; pos++){ //this loop generates a new word from binaray sequence
+				if(BinaryWord.charAt(pos)=='1'){                  
+					generatedWord.append(text.charAt(pos));
+				}
+			}
+			if (lexicon.IsExist(generatedWord.toString())){
+				words.addLast(generatedWord.toString());
+			}
+		}
+		PrintOrderedList(words,text);		
 	}
+	// def wordIsFoldable(word, text):
+    // normtext = normalize(text)
+    // t = 0                      # pointer to positions in normtext
+    // w = 0                      # pointer to positions in word
+    // while t < len(normtext):
+    //     if word[w] == normtext[t]:  # matching chars in word and text
+    //         w += 1                  # move to next char in word
+    //     if w == len(word):          # matched all chars in word
+    //         return(True)            # so: thumbs up
+    //     t += 1                 # move to next char in text
+    // return(False)
 
-	public static void Algo4(){
-		
+	// this function return true if the word can be formed by folding the given text
+	private boolean wordIsFoldable(String word, String text){
+		for(int i = 0; i < word.length(); i++ ){
+			for(int j = 0; j < text.length(); j++ ){
+				if(word.charAt(i) == word.charAt(j)){
+					i++;
+					if( i == word.length()){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void wordIsFoldableAlgo(Lexicon lexicon, String text){
+		LinkedList words = new LinkedList<String>();
+		String word;
+		while(!(lexicon.ReadWord() == "")){
+			if(wordIsFoldable(lexicon.getCurrentWord(), text)){
+				words.add(lexicon.getCurrentWord());
+			}
+		}
+		PrintOrderedList(words, text);
 	}
 }	

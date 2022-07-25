@@ -82,6 +82,9 @@ public class Lexicon {
 	* @return True/False if the word is exist
     */
 	public boolean IsExist(String word) {
+		if(Hash_Formula(word) < 0 || Hash_Formula(word) >= ARR_SIZE){
+			return false;
+		}
 		return lexicon[Hash_Formula(word)].contains(word);
 	}
 
@@ -98,6 +101,14 @@ public class Lexicon {
 			current = lexicon[counter].iterator();
 			if(counter == ARR_SIZE - 1) return ""; 
 		}
+		return current.next();
+	}
+    /**
+    * The function returns the current word in the hashTable
+	*
+	* @return The currnet word in the table
+    */
+	public String getCurrentWord() {
 		return current.next();
 	}
 
