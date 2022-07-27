@@ -1,34 +1,49 @@
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
+import java.lang.*;
 
 /*
+This class defines four algorithms for generalizing all foldable words from given text and lexicon.
+Those functions are based on a post by Brian Hayes in Bit-Player website 
+http://bit-player.org/2021/foldable-words     
 */
 
 public class FoldedWord {
 	public static void main(String[] args) {
 		Lexicon lexicon = new Lexicon("words");
 		String text = "It's a pleasure to serve you!";
-		System.out.println("Using Alghorithm 'randomFoldableWords':");
-		randomFoldableWords(text, lexicon, 3, 1000000);
-		System.out.println();
-		System.out.println("Using Alghorithm 'FoldableStrings3':");
-		FoldableStrings3(lexicon, text);
+		// System.out.println("Using Alghorithm 'randomFoldableWords':");
+		// randomFoldableWords(text, lexicon, 3, 1000000);
+		// System.out.println();
+		// System.out.println("Using Alghorithm 'FoldableStrings3':");
+		// FoldableStrings3(lexicon, text);
 		// System.out.println("Using Alghorithm 'foldablesByCounting':");
 		// foldablesByCounting(lexicon, text);
-		// System.out.println("Using Alghorithm 'wordIsFoldableAlgo':");
-		// wordIsFoldableAlgo(lexicon, text);
+		System.out.println("Using Alghorithm 'wordIsFoldableAlgo':");
+		wordIsFoldableAlgo(lexicon, text);
 	}
-
+    
+ 
+	/** this function Normalizing the string means: lowercase only, no spaces, no punctuation.
+	 * @param str string that you want to normalize
+	 * @return normalized string
+	 */
 	public static String Normalize(String str){
-		// Normalizing the string means: lowercase only, no spaces, no punctuation.
+		
 		String normalized_str = str.toLowerCase();
 		normalized_str = normalized_str.replaceAll("[^a-z]", "");
 		return normalized_str;
 	}
 
+	
+	/** this function organize and prints the words into groups based on each word’s starting position 
+	 * within the text. Within each group, the words are sorted according to the position of their last
+	 * character.
+	 * @param lst the linked list that you wish to print
+	 * @param text the reference text for the groups- explained at top of this documantaion 
+	 */
 	public static void PrintOrderedList(LinkedList<String> lst, String text){
-		// printing the ordered list in groups, based on each word’s starting position within the text.
 		int length = text.length();
 		LinkedList<String>[] table = new LinkedList[length];
 		for(int i = 0; i < length; i++) {
@@ -47,12 +62,15 @@ public class FoldedWord {
 		}
 		System.out.println("There was printed " + lst.size() + " words.");
 	}
-
-	public static void randomFoldableWords(String text, Lexicon lexicon, int k, int reps){
-		/** generates random foldable sequences of letters drawn from a given source text.
+	/** generates random foldable sequences of letters drawn from a given source text.
 		* then returns those sequences that are found in the lexicon given.
-		* The parameter k is the length of the words to be generated, and reps specifies the number of random trials)
+		* The parameter k is the length of the words to be generated, and reps specifies the number of random trials) 
+		@param text
+		@param lexicon
+		@param k
+		@param reps
 		*/
+	public static void randomFoldableWords(String text, Lexicon lexicon, int k, int reps){
 		String norm_text = Normalize(text);
 		int length = norm_text.length();
 		LinkedList<String> lst = new LinkedList<>();
@@ -73,10 +91,14 @@ public class FoldedWord {
 		PrintOrderedList(lst, norm_text);
 	}
 
-	public static void FoldableStrings3(Lexicon lexicon, String text){
-		/** generates all three-letter strings that can be folded from the given text,
+
+	/** generates all three-letter strings that can be folded from the given text,
 		*  and returns the subset of those strings that appear in the lexicon given.
-		*/
+		@param lexicon the lexicon that the function refers to.
+		@param text the text that the function checks for folderable words in.
+        */
+	public static void FoldableStrings3(Lexicon lexicon, String text){
+	
 		String norm_text = Normalize(text);
 		int length = norm_text.length();
 		LinkedList<String> lst = new LinkedList<>();
@@ -94,12 +116,19 @@ public class FoldedWord {
 		PrintOrderedList(lst, norm_text);
 	}
 
+	/** generates all strings that can be folded from the given text.
+		* the function works by creating all the binary sequence that shorter than the text length,
+		* converting those sequences to words and check if they are exist in the lexicon.
+		* eventually it returns the subset of those strings that appear in the given lexicon.
+		@param lexicon the lexicon that the function refers to.
+		@param text the text that the function checks for folderable words in.
+		*/
 	public static void foldablesByCounting(Lexicon lexicon, String text){
 		text = Normalize(text);
 		int length = text.length();
 		LinkedList words = new LinkedList<String>();
-		for(int i = 0; i < Math.pow(2, length) - 1; i++ ){     //iterate over all the binaray sequance shorter than the string length
-			String BinaryWord = Integer.toBinaryString(i);
+		for(int i = 0; i < Math.pow(2, length) - 1; i++ ){  //iterate over all the binaray sequance that shorter than the string length
+			String BinaryWord = toBinaryStringWithLeadingZeroes(i,text);
 			StringBuilder generatedWord = new StringBuilder();
 			for(int pos = 0; pos < BinaryWord.length() ; pos++){ //this loop generates a new word from binaray sequence
 				if(BinaryWord.charAt(pos)=='1'){                  
@@ -107,19 +136,36 @@ public class FoldedWord {
 				}
 			}
 			if (lexicon.IsExist(generatedWord.toString())){
-				words.addLast(generatedWord.toString());
+				// System.out.println(BinaryWord);
+				words.add(generatedWord.toString());
 			}
 		}
 		PrintOrderedList(words,text);		
 	}
+	/** this function generates a 16 long binary string that includes the leading zeros.
+	 * @param num number to be converted to binary string
+	 * @return binary string represents the number
+	 */
+	private static String toBinaryStringWithLeadingZeroes(int num, String text){
+		int length = text.length();
+		String binWord = Integer.toBinaryString(num);
+		return String.format("%16s", binWord).replace(' ', '0');
+		}
+
 	
-	// this function return true if the word can be formed by folding the given text
+	
+	/** this function return true if the word can be formed by folding the given text
+	 * @param word Check if the word is a folderable word in the text
+	 * @param text Check if the word is a folderable word in the text
+	 * @return true if the word is a folded text result  
+	 */
 	private static boolean wordIsFoldable(String word, String text){
-		for(int i = 0; i < word.length(); i++ ){
-			for(int j = 0; j < text.length(); j++ ){
-				if(word.charAt(i) == word.charAt(j)){
-					i++;
-					if( i == word.length()){
+		int textPos = 0; 
+		for(int wordPos = 0; wordPos < word.length(); wordPos++ ){
+			for(; textPos < text.length(); textPos++ ){
+				if(word.charAt(wordPos) == word.charAt(textPos)){
+					wordPos++;
+					if( wordPos == word.length()){
 						return true;
 					}
 				}
@@ -127,15 +173,23 @@ public class FoldedWord {
 		}
 		return false;
 	}
-	
+	/** 
+	 * 
+	@param lexicon the lexicon that the function refers to.
+	@param text the text that the function checks for folderable words in.
+	*/
 	public static void wordIsFoldableAlgo(Lexicon lexicon, String text){
 		LinkedList words = new LinkedList<String>();
-		String word;
-		while(!(lexicon.ReadWord() == "")){
-			if(wordIsFoldable(lexicon.getCurrentWord(), text)){
-				words.add(lexicon.getCurrentWord());
+		String word = lexicon.ReadWord();
+		while(word != ""){
+			if(wordIsFoldable(word, text)){
+				words.add(word);
 			}
+			word = lexicon.ReadWord();
 		}
 		PrintOrderedList(words, text);
 	}
+
+
+	
 }	
