@@ -13,13 +13,13 @@ public class FoldedWord {
 	public static void main(String[] args) {
 		Lexicon lexicon = new Lexicon("words");
 		String text = "It's a pleasure to serve you!";
-		// System.out.println("Using Alghorithm 'randomFoldableWords':");
-		// randomFoldableWords(text, lexicon, 3, 1000000);
-		// System.out.println();
-		// System.out.println("Using Alghorithm 'FoldableStrings3':");
-		// FoldableStrings3(lexicon, text);
-		// System.out.println("Using Alghorithm 'foldablesByCounting':");
-		// foldablesByCounting(lexicon, text);
+		System.out.println("Using Alghorithm 'randomFoldableWords':");
+		randomFoldableWords(text, lexicon, 3, 1000000);
+		System.out.println();
+		System.out.println("Using Alghorithm 'FoldableStrings3':");
+		FoldableStrings3(lexicon, text);
+		System.out.println("Using Alghorithm 'foldablesByCounting':");
+		foldablesByCounting(lexicon, text);
 		System.out.println("Using Alghorithm 'wordIsFoldableAlgo':");
 		wordIsFoldableAlgo(lexicon, text);
 	}
@@ -161,10 +161,10 @@ public class FoldedWord {
 	 * @return true if the word is a folded text result  
 	 */
 	private static boolean wordIsFoldable(String word, String text){
-		int textPos = 0; 
+		int textPos = 0;
 		for(int wordPos = 0; wordPos < word.length(); wordPos++ ){
 			for(; textPos < text.length(); textPos++ ){
-				if(word.charAt(wordPos) == word.charAt(textPos)){
+				if(word.charAt(wordPos) == text.charAt(textPos)){
 					wordPos++;
 					if( wordPos == word.length()){
 						return true;
@@ -172,6 +172,7 @@ public class FoldedWord {
 				}
 			}
 		}
+
 		return false;
 	}
 	/** 
