@@ -44,6 +44,7 @@ public class FoldedWord {
 	 * @param text the reference text for the groups- explained at top of this documantaion 
 	 */
 	public static void PrintOrderedList(LinkedList<String> lst, String text){
+		text = Normalize(text);
 		int length = text.length();
 		LinkedList<String>[] table = new LinkedList[length];
 		for(int i = 0; i < length; i++) {
@@ -179,7 +180,7 @@ public class FoldedWord {
 	@param text the text that the function checks for folderable words in.
 	*/
 	public static void wordIsFoldableAlgo(Lexicon lexicon, String text){
-		LinkedList words = new LinkedList<String>();
+		LinkedList<String>  words = new LinkedList<>();
 		String word = lexicon.ReadWord();
 		while(word != ""){
 			if(wordIsFoldable(word, text)){
