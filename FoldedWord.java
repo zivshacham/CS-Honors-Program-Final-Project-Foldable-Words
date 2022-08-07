@@ -72,10 +72,10 @@ public class FoldedWord {
 	/** generates random foldable sequences of letters drawn from a given source text.
 		* then returns those sequences that are found in the lexicon given.
 		* The parameter k is the length of the words to be generated, and reps specifies the number of random trials) 
-		@param text
-		@param lexicon
-		@param k
-		@param reps
+		@param text the text that the function checks for folderable words in.
+		@param lexicon the lexicon that the function refers to.
+		@param k 
+		@param reps number of char sequences to be randomize
 		*/
 	public static void randomFoldableWords(String text, Lexicon lexicon, int k, int reps){
 		String norm_text = Normalize(text);
