@@ -60,8 +60,14 @@ public class FoldedWord {
 			System.out.print("Group " + j + ":");
 			System.out.print(table[j].toString());
 			System.out.println();
+		
 		}
-		System.out.println("There was printed " + lst.size() + " words.");
+
+	
+		System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		System.out.println("There was printed " + lst.size() + " words.\n");
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		
 	}
 	/** generates random foldable sequences of letters drawn from a given source text.
 		* then returns those sequences that are found in the lexicon given.
@@ -152,6 +158,7 @@ public class FoldedWord {
 		String binWord = Integer.toBinaryString(num);
 		return String.format("%16s", binWord).replace(' ', '0');
 		}
+		
 
 	
 	
