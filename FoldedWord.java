@@ -22,13 +22,14 @@ public class FoldedWord {
 		System.out.println("Please enter the source file for creating the Lexicon:");
 		file = sc.nextLine();
 		Lexicon lexicon = new Lexicon(file);
-		if (!lexicon.isValid()) {
+		while (!lexicon.isValid()) {
 			System.out.println("WRONG INPUT, TRY AGAIN!");
 			System.out.println("Please enter the source file for creating the Lexicon:");
 			file = sc.nextLine();
 			lexicon = new Lexicon(file);
 		}
-		System.out.println("It's works! We build your lexicon!");
+		System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		System.out.println("It's works! The lexicon was successfully built!");
 		System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
 		System.out.println("Please enter your text:");
