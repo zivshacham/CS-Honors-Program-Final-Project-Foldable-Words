@@ -1,5 +1,3 @@
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
@@ -13,7 +11,7 @@ http://bit-player.org/2021/foldable-words
 
 public class FoldedWord {
 	public static void main(String[] args) {
-		// File to use: "words"
+		// File to use: "words" or "Scrabble"
 		// String to use: "It's a pleasure to serve you!"
 		String file, text, algoNum;
 		Scanner sc = new Scanner(System. in );
@@ -30,7 +28,7 @@ public class FoldedWord {
 			file = sc.nextLine();
 			lexicon = new Lexicon(file);
 		}
-		System.out.println("It's works! we build your lexicon!");
+		System.out.println("It's works! We build your lexicon!");
 		System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
 		System.out.println("Please enter your text:");
@@ -101,7 +99,6 @@ public class FoldedWord {
 		sc.close();
 	}
     
- 
 	/** this function Normalizing the string means: lowercase only, no spaces, no punctuation.
 	 * @param str string that you want to normalize
 	 * @return normalized string
@@ -112,13 +109,12 @@ public class FoldedWord {
 		normalized_str = normalized_str.replaceAll("[^a-z]", "");
 		return normalized_str;
 	}
-
 	
 	/** this function organize and prints the words into groups based on each word’s starting position 
 	 * within the text. Within each group, the words are sorted according to the position of their last
 	 * character.
 	 * @param lst the linked list that you wish to print
-	 * @param text the reference text for the groups- explained at top of this documantaion 
+	 * @param text the reference text for the groups - explained at top of this documantaion 
 	 */
 	public static void PrintOrderedList(LinkedList<String> lst, String text){
 		text = Normalize(text);
@@ -139,13 +135,11 @@ public class FoldedWord {
 			System.out.println();
 		
 		}
-
-	
 		System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~\n");
 		System.out.println("There was printed " + lst.size() + " words.\n");
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~\n");
-		
 	}
+
 	/** generates random foldable sequences of letters drawn from a given source text.
 		* then returns those sequences that are found in the lexicon given.
 		* The parameter k is the length of the words to be generated, and reps specifies the number of random trials) 
@@ -174,7 +168,6 @@ public class FoldedWord {
 		}
 		PrintOrderedList(lst, norm_text);
 	}
-
 
 	/** generates all three-letter strings that can be folded from the given text,
 		*  and returns the subset of those strings that appear in the lexicon given.
@@ -226,6 +219,7 @@ public class FoldedWord {
 		}
 		PrintOrderedList(words,text);		
 	}
+
 	/** this function generates a 16 long binary string that includes the leading zeros.
 	 * @param num number to be converted to binary string
 	 * @return binary string represents the number
@@ -236,9 +230,6 @@ public class FoldedWord {
 		return String.format("%16s", binWord).replace(' ', '0');
 		}
 		
-
-	
-	
 	/** this function return true if the word can be formed by folding the given text
 	 * @param word Check if the word is a foldable word in the text
 	 * @param text Check if the word is a foldable word in the text
@@ -259,8 +250,8 @@ public class FoldedWord {
 
 		return false;
 	}
+
 	/** 
-	 * 
 	@param lexicon the lexicon that the function refers to.
 	@param text the text that the function checks for folderable words in.
 	*/
@@ -274,8 +265,5 @@ public class FoldedWord {
 			word = lexicon.ReadWord();
 		}
 		PrintOrderedList(words, text);
-	}
-
-
-	
+	}	
 }	
