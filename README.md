@@ -1,1 +1,1 @@
-# Final-Project---Foladable-Words
+# Final-Project---Foldable-Words
