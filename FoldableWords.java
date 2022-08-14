@@ -9,7 +9,7 @@ Those functions are based on a post by Brian Hayes in Bit-Player website
 http://bit-player.org/2021/foldable-words     
 */
 
-public class FoldedWord {
+public class FoldableWords {
 	public static void main(String[] args) {
 		// File to use: "words" or "Scrabble"
 		// String to use: "It's a pleasure to serve you!"
