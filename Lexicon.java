@@ -27,9 +27,6 @@ public class Lexicon {
 		}
 		counter = 0;
 		current = lexicon[counter].iterator();
-		// insert("i");
-		// insert("o");
-		// insert("a");
 		
       	try {
          // try to read from file 
@@ -44,6 +41,7 @@ public class Lexicon {
       	}
       	catch (IOException e) {
         	// throw new RuntimeException ("Could not open file: " + filename);
+			lexicon = null;
 			System.out.println("Could not open file: " + filename);
 		}
 	}
@@ -120,10 +118,18 @@ public class Lexicon {
 		System.out.println("The biggest cell is: " + maxCell);
 	}
 
+	/**
+    * The function checks if the lexicon builded succesfully. 
+    * 
+	* @return True/False if the lexicon is exist
+    */
+	public boolean isValid() {
+		if (this.lexicon == null) return false;
+		return true;
+	}
+
 	public static void main(String[] args) {
-		Lexicon lex = new Lexicon("words");
-		// System.out.println(lex.Get_Table()[1].toString());
-		// System.out.println(lex.Get_Table()[18278].toString());
+		// Lexicon lex = new Lexicon("words");
 		// System.out.println(lex.IsExist("a"));
 		// System.out.println(lex.IsExist("zz"));
 		// System.out.println(lex.IsExist("zzz"));
@@ -131,7 +137,7 @@ public class Lexicon {
 		// for (int i = 0; i <= 1000; i++) {
 		// 	System.out.println(lex.ReadWord());
 		// }
-		lex.MaxinCell();
-		System.out.println("done succesfuly");
+		// lex.MaxinCell();
+		// System.out.println("done succesfuly");
 	}
 }

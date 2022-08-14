@@ -1,7 +1,9 @@
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
-import java.lang.*;
+import java.util.Scanner;
 
 /*
 This class defines four algorithms for generalizing all foldable words from given text and lexicon.
@@ -11,17 +13,92 @@ http://bit-player.org/2021/foldable-words
 
 public class FoldedWord {
 	public static void main(String[] args) {
-		Lexicon lexicon = new Lexicon("words");
-		String text = "It's a pleasure to serve you!";
-		System.out.println("Using Alghorithm 'randomFoldableWords':");
-		randomFoldableWords(text, lexicon, 3, 1000000);
-		System.out.println();
-		System.out.println("Using Alghorithm 'FoldableStrings3':");
-		FoldableStrings3(lexicon, text);
-		System.out.println("Using Alghorithm 'foldablesByCounting':");
-		foldablesByCounting(lexicon, text);
-		System.out.println("Using Alghorithm 'wordIsFoldableAlgo':");
-		wordIsFoldableAlgo(lexicon, text);
+		// File to use: "words"
+		// String to use: "It's a pleasure to serve you!"
+		String file, text, algoNum;
+		Scanner sc = new Scanner(System. in );
+		System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		System.out.println("Welcome to \"Foladable words\" game!");
+		System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		
+		System.out.println("Please enter the source file for creating the Lexicon:");
+		file = sc.nextLine();
+		Lexicon lexicon = new Lexicon(file);
+		if (!lexicon.isValid()) {
+			System.out.println("WRONG INPUT, TRY AGAIN!");
+			System.out.println("Please enter the source file for creating the Lexicon:");
+			file = sc.nextLine();
+			lexicon = new Lexicon(file);
+		}
+		System.out.println("It's works! we build your lexicon!");
+		System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+		System.out.println("Please enter your text:");
+		text = sc.nextLine();
+		System.out.println("Please choose which algorithem to use:");
+		System.out.println("1 - randomFoldableWords");
+		System.out.println("2 - FoldableStrings3");
+		System.out.println("3 - foldablesByCounting");
+		System.out.println("4 - wordIsFoldableAlgo");
+		algoNum = sc.nextLine();
+
+		while (!algoNum.equals("1") && !algoNum.equals("2") && !algoNum.equals("3") && !algoNum.equals("4")){
+			System.out.println("WRONG INPUT, TRY AGAIN!");
+			System.out.println("Please choose which algorithem to use:");
+			System.out.println("1 - randomFoldableWords");
+			System.out.println("2 - FoldableStrings3");
+			System.out.println("3 - foldablesByCounting");
+			System.out.println("4 - wordIsFoldableAlgo");
+			algoNum = sc.nextLine();
+		}
+		
+		if (algoNum.equals("1")){
+			System.out.println("For using algorithem 'randomFoldableWords' you should enter the length of the word and the reps.");
+			System.out.println("Please enter the length of the word: (int between 1-15)");
+			String length = sc.nextLine();
+			int lengthInt;
+			while (true) {
+				try{
+					lengthInt = Integer.parseInt(length);
+					if (lengthInt < 1 || lengthInt > 15) {
+						System.out.println("WRONG INPUT, TRY AGAIN!");
+						System.out.println("Please enter the length of the word: (int between 1-15)");
+						length = sc.nextLine();
+					} else { break; }
+				}
+				catch (NumberFormatException ex){
+					System.out.println("WRONG INPUT, TRY AGAIN!");
+					System.out.println("Please enter the length of the word: (int between 1-15)");
+					length = sc.nextLine();
+				}
+			}
+			System.out.println("Please enter the reps:");
+			String reps = sc.nextLine();
+			int repsInt;
+			while (true) {
+				try{
+					repsInt = Integer.parseInt(reps);
+					break;
+				}
+				catch (NumberFormatException ex){
+					System.out.println("WRONG INPUT, TRY AGAIN!");
+					System.out.println("Please enter the reps:");
+					reps = sc.nextLine();
+				}
+			}
+			System.out.println("Using Alghorithm 'randomFoldableWords':");
+			randomFoldableWords(text, lexicon, lengthInt, repsInt);
+		} else if (algoNum.equals("2")){
+			System.out.println("Using Alghorithm 'foldableStrings3':");
+			foldableStrings3(lexicon, text);
+		} else if (algoNum.equals("3")){
+			System.out.println("Using Alghorithm 'foldablesByCounting':");
+			foldablesByCounting(lexicon, text);
+		} else if (algoNum.equals("4")){
+			System.out.println("Using Alghorithm 'wordIsFoldableAlgo':");
+			wordIsFoldableAlgo(lexicon, text);
+		}
+		sc.close();
 	}
     
  
@@ -104,7 +181,7 @@ public class FoldedWord {
 		@param lexicon the lexicon that the function refers to.
 		@param text the text that the function checks for folderable words in.
         */
-	public static void FoldableStrings3(Lexicon lexicon, String text){
+	public static void foldableStrings3(Lexicon lexicon, String text){
 	
 		String norm_text = Normalize(text);
 		int length = norm_text.length();
@@ -163,8 +240,8 @@ public class FoldedWord {
 	
 	
 	/** this function return true if the word can be formed by folding the given text
-	 * @param word Check if the word is a folderable word in the text
-	 * @param text Check if the word is a folderable word in the text
+	 * @param word Check if the word is a foldable word in the text
+	 * @param text Check if the word is a foldable word in the text
 	 * @return true if the word is a folded text result  
 	 */
 	private static boolean wordIsFoldable(String word, String text){
@@ -173,7 +250,7 @@ public class FoldedWord {
 			for(; textPos < text.length(); textPos++ ){
 				if(word.charAt(wordPos) == text.charAt(textPos)){
 					wordPos++;
-					if( wordPos == word.length()){
+					if(wordPos == word.length()){
 						return true;
 					}
 				}
